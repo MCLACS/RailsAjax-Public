@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>AJAX.html</title>
+
+    <!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+	<!-- datatables -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">	
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- custom local styles -->
+    <style>
+    	.chart {height: 50px; width:5px; border: solid 1px black;}
+    	.empty {background-color: red; }
+	</style>
+
+  	</head>
+  	<body>
+		<!-- page content -->
+		<div class="container well">
+			<ul id="list">
+			</ul>
+			<%= link_to "Click here to see a GET from controller to external source", controller: "jsonbuilder", action: "people2" %>
+		</div>
+
+		<!-- jquery -->
+		<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>	
+
+		<!-- datatables -->	
+		<script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>	
+
+		<!-- custom local javascript -->
+		<script>
+			$.get( "http://localhost:3000/jsonbuilder/people", 
+				function( response ) 
+				{				
+					if (response != null)
+						refresh(response);
+				});
+
+			function refresh(response)
+			{
+				$('#list').empty();				
+				var ary = response;
+				for (var i = 0; i < ary.length; i++) 
+				{
+					$('#list').append($('<li>' + ary[i] + '</li>'));				    				
+  				}
+			}
+
+		</script>
+	</body>
+</html>
